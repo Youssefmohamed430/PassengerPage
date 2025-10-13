@@ -17,14 +17,13 @@
 
         connection.on("ReceiveLocationUpdate", function (busId,lat,long ) {
         var Location = "Bus" + "[" + busId + "]" + ": " + "Latitude: " + lat + ", Longitude: " + long;
-        var p = document.createElement("p");
-        p.textContent = Location;
+        var locationDiv = document.getElementById("Location");
+        locationDiv.innerHTML = Location;
     });
         });
         </script>
 </head>
 <body>
-    
+    <p id="Location"></p>
 </body>
-
 </html>
