@@ -38,12 +38,11 @@
                     }).then(response => response.json()).then(result => {
                         var DistanceToLocation = "Distance to you: " + result.distance + " km";
                         var DurationToLocation = "Duration: " + result.duration + " minutes";
-
-                        var locationDiv = document.getElementById("Location");
-                        locationDiv.innerHTML += Location + "<br>";
                         var coordinatesDiv = document.getElementById("Coordinates");
                         coordinatesDiv.innerHTML += DistanceToLocation + ", " + DurationToLocation + "<br>";
                     });
+                    var locationDiv = document.getElementById("Location");
+                    locationDiv.innerHTML += Location + "<br>";
                 });
             }).catch(err => console.error(err.toString()));
         });
