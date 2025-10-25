@@ -38,15 +38,9 @@
                 "ReceiveLocationUpdate[" + TripId + "]",
                 function (busId, lat, long) {
                   var Location =
-                    "Bus" +
-                    "[" +
-                    busId +
-                    "]" +
-                    ": " +
-                    "Latitude: " +
-                    lat +
-                    ", Longitude: " +
-                    long;
+                    "Bus" + "[" + busId +"]" +": " +
+                    "Latitude: " + lat +
+                    ", Longitude: " + long;
 
                   const url = `https://citybus.runasp.net/Route/CalcDistanceToDistnation/${Userlon}/${Userlat}/${lat}/${long}`;
 
