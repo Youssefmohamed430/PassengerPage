@@ -27,9 +27,20 @@
           });
         }
 
-        getCurrentPositionPromise().then((position) => {
-          const Userlat = Number(position.coords.latitude);
-          const Userlon = Number(position.coords.longitude);
+        let StartStationlat = 0;
+        let StartStationlon = 0;
+
+        const url = `https://citybus.runasp.net/Route/CalcDistanceToDistnation/${Userlon}/${Userlat}/${long}/${lat}`;
+                  fetch(url, {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }).then((response) => response.json())
+                    .then((result) => {
+                      StartStationlat = result.latitude;
+                      StartStationlon = result.longitude;
+                    })
 
           connection
             .start()
@@ -37,8 +48,7 @@
               connection.on(
                 "ReceiveLocationUpdate[" + TripId + "]",
                 function (busId, lat, long) {
-                  const url = `https://citybus.runasp.net/Route/CalcDistanceToDistnation/${Userlon}/${Userlat}/${long}/${lat}`;
-
+                  const url = `https://citybus.runasp.net/Route/CalcDistanceToDistnation/${StartStationlon}/${StartStationlat}/${long}/${lat}`;
                   fetch(url, {
                     method: "GET",
                     headers: {
@@ -77,7 +87,7 @@
               );
             })
             .catch((err) => console.error(err.toString()));
-        });
+
 
         Notificationconnection.start().then(() => {
           Notificationconnection.on(
