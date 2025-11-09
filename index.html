@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        let passengerid = "30e7e4cf-d4d7-4bd6-bc6f-1a2ceb6aba5b";
+        let updateCount = 0;
         var TripId = prompt("Enter TripId!");
         var connection = new signalR.HubConnectionBuilder()
           .withUrl("https://citybus.runasp.net/trackingHub")
@@ -30,7 +32,7 @@
         let StartStationlat = 0;
         let StartStationlon = 0;
 
-        const url = `https://citybus.runasp.net/Route/CalcDistanceToDistnation/${Userlon}/${Userlat}/${long}/${lat}`;
+        const url = `https://citybus.runasp.net/Booking/StartStation/${passengerid}`;
                   fetch(url, {
                     method: "GET",
                     headers: {
@@ -87,8 +89,6 @@
               );
             })
             .catch((err) => console.error(err.toString()));
-
-
         Notificationconnection.start().then(() => {
           Notificationconnection.on(
             "ReceiveNotification",
