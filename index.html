@@ -24,12 +24,6 @@
           .withUrl("https://citybus.runasp.net/notificationHub")
           .build();
 
-        function getCurrentPositionPromise() {
-          return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject);
-          });
-        }
-
         let StartStationlat = 0;
         let StartStationlon = 0;
 
