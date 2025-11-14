@@ -12,7 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        let passengerid = "30e7e4cf-d4d7-4bd6-bc6f-1a2ceb6aba5b";
+        // let passengeroneid = "30e7e4cf-d4d7-4bd6-bc6f-1a2ceb6aba5b";
+        let passengertwoid = "76bdf789-9d70-4a46-9e5f-f1074f2993cf";
         let updateCount = 0;
         var TripId = prompt("Enter TripId!");
         var connection = new signalR.HubConnectionBuilder()
@@ -32,7 +33,7 @@
         let StartStationlat = 0;
         let StartStationlon = 0;
 
-        const url = `https://citybus.runasp.net/Booking/StartStation/${passengerid}`;
+        const url = `https://citybus.runasp.net/Booking/StartStation/${passengertwoid}`;
                   fetch(url, {
                     method: "GET",
                     headers: {
