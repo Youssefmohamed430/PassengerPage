@@ -37,9 +37,9 @@
                     .then((result) => {
                       StartStationlat = result.latitude;
                       StartStationlon = result.longitude;
+                      console.log("StartStationlat: " + StartStationlat + " StartStationlon: " + StartStationlon);
                     })
 
-          console.log("StartStationlat: " + StartStationlat + " StartStationlon: " + StartStationlon);
 
           connection
             .start()
