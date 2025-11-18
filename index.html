@@ -13,21 +13,26 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // let passengeroneid = "30e7e4cf-d4d7-4bd6-bc6f-1a2ceb6aba5b";
-        let passengertwoid = "76bdf789-9d70-4a46-9e5f-f1074f2993cf";
+        let userId = "76bdf789-9d70-4a46-9e5f-f1074f2993cf";
         let updateCount = 0;
         var TripId = prompt("Enter TripId!");
         var connection = new signalR.HubConnectionBuilder()
           .withUrl("https://citybus.runasp.net/trackingHub")
           .build();
 
+        // var Notificationconnection = new signalR.HubConnectionBuilder()
+        //   .withUrl("https://citybus.runasp.net/notificationHub")
+        //   .build();
+
         var Notificationconnection = new signalR.HubConnectionBuilder()
-          .withUrl("https://citybus.runasp.net/notificationHub")
+          .withUrl(`https://citybus.runasp.net/notificationHub?userId=${userId}`)
+          .withAutomaticReconnect() 
           .build();
 
         let StartStationlat = 0;
         let StartStationlon = 0;
 
-        const url = `https://citybus.runasp.net/Booking/StartStation/${passengertwoid}`;
+        const url = `https://citybus.runasp.net/Booking/StartStation/${userId}`;
                   fetch(url, {
                     method: "GET",
                     headers: {
@@ -86,19 +91,35 @@
               );
             })
             .catch((err) => console.error(err.toString()));
-        Notificationconnection.start().then(() => {
-          Notificationconnection.on(
-            "ReceiveNotification",
-            function (notification) {
-              alert(
-                "Notification: " +
-                  notification.msg +
-                  "\nDate: " +
-                  notification.date
-              );
-            }
-          );
+        // Notificationconnection.start().then(() => {
+        //   Notificationconnection.on(
+        //     "ReceiveNotification",
+        //     function (notification) {
+        //       alert(
+        //         "Notification: " +
+        //           notification.msg +
+        //           "\nDate: " +
+        //           notification.date
+        //       );
+        //     }
+        //   );
+        // });
+
+        Notificationconnection.on("ReceiveNotification", function (notification) {
+              alert("Notification: " + notification.msg + "\nDate: " + notification.date);
         });
+
+        async function startNotificationConnection() {
+          try {
+            await Notificationconnection.start();
+            console.log("Notification connection started");
+          } catch (err) {
+            console.error("Failed to connect notification hub:", err);
+            setTimeout(startNotificationConnection, 2000); // إعادة محاولة بعد 2s
+          }
+        }
+
+        startNotificationConnection();
       });
     </script>
   </head>
